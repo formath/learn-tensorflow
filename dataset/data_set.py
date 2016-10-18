@@ -8,7 +8,7 @@ import tensorflow as tf
 class DataSet(object):
     def __init__(self):
         self.iter = 0
-        self.one_pass = False
+        self.epoch_pass = 0
 
     def load(self, file, feature_num, dense = False):
         self.feature_num = feature_num
@@ -35,7 +35,7 @@ class DataSet(object):
             for line in f.readlines():
                 tokens = line.split(" ")
                 self.y.append(float(tokens[0]))
-                self.ins_feature_interval.append(len(tokens) - 1)
+                self.ins_feature_interval.append(self.ins_feature_interval[-1] + len(tokens) - 1)
                 for feature in tokens[1:]:
                     feature_id, feature_value = feature.split(":")
                     self.feature_ids.append(int(feature_id))
@@ -48,13 +48,16 @@ class DataSet(object):
         if self.iter + batch_size > self.ins_num:
             end = self.ins_num
             self.iter = 0
-            self.one_pass = True
-        return slice(begin, end)
+            self.epoch_pass += 1
+        else:
+            end += batch_size
+            self.iter = end
+        return self.slice(begin, end)
 
     def slice(self, begin, end):
         if self.data_type == "dense":
             x = np.array(self.x[begin:end])
-            y = np.array(self.y[begin:end])
+            y = np.array(self.y[begin:end]).reshape((end - begin, 1))
             return (x, y)
         else:
             sparse_index = []
@@ -72,8 +75,5 @@ class DataSet(object):
                     sparse_values.append(self.feature_values[j])
             sparse_shape.append(end - begin)
             sparse_shape.append(max_feature_num)
-            x = []
-            x.append(tf.SparseTensor(sparse_index, sparse_ids, sparse_shape))
-            x.append(tf.SparseTensor(sparse_index, sparse_values, sparse_shape))
-            y = np.array(self.y[begin:end])
-            return (x, y)
+            y = np.array(self.y[begin:end]).reshape((end - begin, 1))
+            return (sparse_index, sparse_ids, sparse_values, sparse_shape, y)
