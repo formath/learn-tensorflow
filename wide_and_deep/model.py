@@ -67,7 +67,6 @@ class WideAndDeepModel:
             layer = self.sparse_full_connect(sparse_id, sparse_value, [self.feature_num, self.label_num], [self.label_num])
         return layer
 
-
     def wide_and_deep_inference(self, sparse_id, sparse_value):
         '''
         bagging of dnn and lr

@@ -4,6 +4,7 @@ import numpy as np
 import tensorflow as tf
 from wide_and_deep.model import WideAndDeepModel
 
+# config
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 flags.DEFINE_string("checkpoint_dir", "./checkpoint/", "checkpoint dirctory")
