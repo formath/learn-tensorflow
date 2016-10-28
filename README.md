@@ -9,7 +9,7 @@ On both data type, you will learn how to load training data using numpy and pars
  For example, **Tensor** should use **embedding_lookup** method while **Sparse Tensor** not. **Sparse Tensor** should use **embedding_lookup_sparse** instead.
  [Detail](https://github.com/formath/learn-tensorflow/tree/master/logistic_regression)
 
-## sigular value decomposition
+## singular value decomposition
 In this example, you will learn how to build a **svd** model and train it. In *logistic regression* part, the data is readed and parsed by your self. While
 in this part, your will learn the use of **tfrecords**. It is serialized data format using **protobuf**.
 The data should be transformed into **tfrecords** firstly and tensorflow has inner design to read and parse it. Those designs simplify the input process to tensorflow
