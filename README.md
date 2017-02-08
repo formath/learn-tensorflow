@@ -1,6 +1,6 @@
-# learn-tensorflow
+# tensorflow models
 
-## logistic regression
+## logistic regression for dense or sparse data
 In this example, you will learn the basic flow of building model and training it. It supports two data type, namely **dense data** and **libsvm data**. 
 On both data type, you will learn how to load training data using numpy and parse the data line by line. On dense data, line will be parsed into an label
  and a numpy array which is feeded to the model using **Tensor** in tensorflow. While on libsvm data, line will be parsed into an label and two numpy arrays
@@ -16,7 +16,7 @@ The data should be transformed into **tfrecords** firstly and tensorflow has som
 via **Queue** and **Threads**. It also suppliments other convenience such as **batch read** and **shuffle**.
 [Detail](https://github.com/formath/learn-tensorflow/tree/master/svd)
 
-## wide and deep model
+## deep and wide model
 This example is similar to **singular value decomposition** in many parts except model building. And, this example use **libsvm** data. For sparse data,
 the process of transforming data to **tfrecord** and reading from it is something different from the dense one.
 [Detail](https://github.com/formath/learn-tensorflow/tree/master/wide_and_deep)
